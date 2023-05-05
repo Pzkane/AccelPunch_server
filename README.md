@@ -1,8 +1,9 @@
 # AccelPunch_server
 AccelPunch: REST server for data aggregation and statistics
 
-Server: NodeJS
-Database: Postgres
+> Server: NodeJS
+
+>Database: Postgres
 
 1. Create database with name "AccelPunch_database"
 2. Run `AccelPunch_schema.sql` for schema import
