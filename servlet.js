@@ -21,7 +21,7 @@ class Connection {
     try {
       await this.pool.connect()
       const res = await this.pool.query(query)
-      console.log(res)
+      // console.log(res)
       // await this.pool.end()
     } catch (error) {
       console.log(error)
@@ -35,10 +35,10 @@ const server = http.createServer((req, res) => {
   let op = "GET";
   if( req.method === 'GET' ) {
     res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end('Hello, GET!\n');
+    res.end('Connected\n');
   } else if( req.method === 'POST' ) {
     res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end('Hello, POST!\n');
+    res.end('Connected\n');
     op = "POST";
     const chunks = [];
     req.on('data', chunk => chunks.push(chunk));
