@@ -296,7 +296,7 @@ async function updateStats() {
     select DISTINCT
       timestamp,
       TO_CHAR(TO_TIMESTAMP(timestamp::double precision/1000), 'YYYY-DD-MM HH24:MI:SS.MS') as datetime,
-      x+y+z g
+      x+y g
     from bag
     order by timestamp
   )
