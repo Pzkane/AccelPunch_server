@@ -1,6 +1,10 @@
 {
   "dependencies": {
+    "chartjs-adapter-moment": "^1.0.1",
+    "chartjs-node-canvas": "^4.1.6",
+    "chartjs-plugin-trendline": "^0.1.1",
     "dotenv": "^16.0.3",
+    "moment": "^2.29.4",
     "pg": "^8.10.0"
   }
 }
