@@ -513,7 +513,7 @@ const server = http.createServer((req, res) => {
       stmt = "INSERT INTO ";
       let recordCount = 0;
       if (json.hasOwnProperty("gloves")) {
-        stmt += "gloves (timestamp, glove, x, y, z) VALUES "
+        stmt += "gloves (timestamp, glove, x, y, z, roll, pitch) VALUES "
         json.gloves.forEach(glove => {
           if (recordCount > 0) {
             stmt += ","
@@ -523,7 +523,9 @@ const server = http.createServer((req, res) => {
                     "'"+glove.glove+"'" + "," +
                     glove.x + "," +
                     glove.y + "," +
-                    glove.z + ")";
+                    glove.z + "," +
+                    glove.roll + "," +
+                    glove.pitch + ")";
           recordCount++;
         });
       } else if (json.hasOwnProperty("bag")) {
