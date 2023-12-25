@@ -463,6 +463,7 @@ async function updateStats() {
 const server = http.createServer((req, res) => {
   let op = "GET";
   // Just ping from the client, answer with success
+  console.log("Incoming "+ req.method);
   if( req.method === 'GET' ) {
     if (req.url == '/gloves') {
       let stat = fs.statSync(`./${glovesFN}`);
@@ -484,7 +485,6 @@ const server = http.createServer((req, res) => {
         .pipe(res);
       return;
     }
-    console.log("Incoming GET");
     res.writeHead(200, {'Content-Type': 'text/plain'});
     updateStats().then((stats) => {
       const promise_charts = updateCharts(stats);
@@ -508,6 +508,7 @@ const server = http.createServer((req, res) => {
     req.on('end', () => {
       const json_str = Buffer.concat(chunks);
       const json = JSON.parse(json_str);
+      console.log(json);
       // console.log(JSON.stringify(json, null, 2));
       // console.log(json.gloves.length);
       stmt = "INSERT INTO ";
@@ -540,6 +541,26 @@ const server = http.createServer((req, res) => {
                     bagRecord.y + "," +
                     bagRecord.z + "," +
                     bagRecord.temperature + ")";
+          recordCount++;
+        });
+      }
+      recordCount = 0;
+      if (json.hasOwnProperty("t3")) {
+        // FInish off gloves insert
+        stmt += " ON CONFLICT DO NOTHING; INSERT INTO t3 (timestamp, w, x, y, z, xg, yg, zg) VALUES "
+        json.t3.forEach(t3Record => {
+          if (recordCount > 0) {
+            stmt += ","
+          }
+          stmt += "(" +
+                    t3Record.timestamp + "," +
+                    t3Record.w + "," +
+                    t3Record.x + "," +
+                    t3Record.y + "," +
+                    t3Record.z + "," +
+                    t3Record.xg + "," +
+                    t3Record.yg + "," +
+                    t3Record.zg + ")";
           recordCount++;
         });
       }
